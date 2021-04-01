@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id = "app">
+	<form action='javascript:void(0);' id = "firom" class = "custom-form" v-on:submit.prevent='send()'>
+		<span class = "custom__title">Добавить клиента</span>
+		<div class = "column-50">
+			<div class = "fieldset fieldset--text">
+				<label class = "requaried">Фамилия</label><input :class = "{'invalid' : $v.surname.$invalid & isSubmitted}" type="text" v-model="surname" placeholder = "Иванов">
+			</div>
+			<div class = "fieldset fieldset--text">
+				<label class = "requaried">Имя</label><input :class = "{'invalid' : $v.name.$invalid & isSubmitted}" type="text" v-model="name" placeholder = "Иван">
+			</div>
+			<div class = "fieldset fieldset--text">
+				<label>Отчество</label><input type="text" v-model="middleName" placeholder="Иванович">
+			</div>
+			<label>Пол</label><br>
+			<div class = "fieldset fieldset--radio">
+				<input type = "radio" name = "sex" v-model="sex" value = "male"><label>Мужской</label>
+			</div>
+			<div class = "fieldset fieldset--radio">
+				<input type = "radio" name = "sex" v-model="sex" value = "famaly"><label>Женский</label>
+			</div>
+		</div>
+		<div class = "column-50">
+			<label class = "requaried">Дата рождения</label><div></div>
+			<p class="select select--birghtday" :class = "{'invalid' : $v.birghtData.$invalid && isSubmitted}">
+				<select v-model="birghtday">
+					<option v-for="vItem in 31" :value="vItem">{{vItem}}
+				</select>
+			</p><p class="select select--birghtmounth" :class = "{'invalid' : $v.birghtData.$invalid && isSubmitted}">
+				<select v-model="birghtmounth">
+					<option v-for="vItem in arMounth" :value="vItem">{{vItem}}
+				</select>
+			</p><p class="select select--birghtyear" :class = "{'invalid' : $v.birghtData.$invalid && isSubmitted}">
+				<select v-model="birghtyear">
+					<option v-for="vItem in (1921, 2021)" :value="vItem">{{vItem}}
+				</select>
+			</p>
+			<div class = "fieldset fieldset--text">
+				<label class = "requaried">Номер телефона</label><input :class = "{'invalid' : $v.phone.$invalid & isSubmitted}" type="text" v-model="phone" placeholder="+7(###)-###-####">
+			</div>
+			<div class = "fieldset fieldset--checkbox">
+				<input type="checkbox" value="yes" v-model="nosms">
+				<label>Не отправлять СМС</label>
+			</div>
+			<label class = "requaried">Группа клиентов</label>
+			<p class="select select--multiple select--full" :class = "{'invalid' : $v.clientGroup.$invalid & isSubmitted}">
+				<select v-model="clientGroup" multiple>
+					<option v-for="vItem in arClientGroup" :value="vItem">{{ vItem }}</option>
+				</select>
+			</p>
+			<label>Лечащий врач</label>
+			<p class="select select--full">
+				<select v-model="doctor">
+					<option value= 0>Не задано</option>
+					<option v-for="vItem in arDoctor" :value="vItem">{{ vItem }}
+				</select>
+			</p>
+		</div>
+		<div class = "separate"></div>
+		<span class = "custom__title">Адресс</span>
+		<div class = "column-100 street-column">
+			<div class = "fieldset">
+				<label>Индекс</label><input type="text" size = "10" v-model="addressIndex" placeholder = "########">
+			</div>
+			<div class = "fieldset">
+				<label>Страна</label><input type="text" size = "20" v-model="addressCountry" placeholder = "Россия">
+			</div>
+			<div class = "fieldset">
+				<label>Область</label><input type="text" size = "30" v-model="addressRegion" placeholder = "Московская">
+			</div>
+			<div class = "fieldset">
+				<label class = "requaried">Город</label><input :class = "{'invalid' : $v.addressCity.$invalid & isSubmitted}" type="text" size = "20" v-model="addressCity" placeholder = "Москва">
+			</div>
+			<div class = "fieldset">
+				<label>Улица</label><input type="text" size = "30" v-model="addressStreet" placeholder = "Московская">
+			</div>
+			<div class = "fieldset">
+				<label>Дом</label><input type="text" size = "10" v-model="addressHouse" placeholder = "12 к.10">
+			</div>
+		</div>
+		<div class = "separate"></div>
+		<span class = "custom__title">Данные паспорта</span>
+		<div class = "column-100 passport-column">
+			<div class = " fieldset">
+				<label class = "requaried">Тип документа</label><div></div>
+				<p class="select select--passport" :class = "{'invalid' : $v.passportType.$invalid & isSubmitted}">
+					<select v-model="passportType">
+						<option value = -1>Не задано</option>
+						<option v-for="vItem in arPassport" :value="vItem">{{ vItem }}</option>
+					</select>
+				</p>
+			</div>
+			<div class = "fieldset">
+				<label>Серия</label><input type="text" size = "10" v-model="passportSeria" placeholder = "## ##">
+			</div>
+			<div class = "fieldset">
+				<label>Номер</label><input type="text" size = "10" v-model="passportNumber" placeholder = "######">
+			</div>
+			<div class = "fieldset">
+				<label>Кем выдан</label><input type="text" size = "54" v-model="passportOtdel" placeholder = "отделом УФМС России по Республике Коми в г. Сыктывкаре.">
+			</div>
+			<div class = "fieldset fieldset--pass">
+				<label class = "requaried">Дата выдачи</label><div></div>
+				<p class="select select--passday" :class = "{'invalid' : $v.passportData.$invalid && isSubmitted}">
+					<select v-model="passportDay">
+						<option v-for="vItem in 31" :value="vItem">{{vItem}}
+					</select>
+				</p>
+				<p class="select select--passmounth" :class = "{'invalid' : $v.passportData.$invalid && isSubmitted}">
+					<select v-model="passportMounth">
+						<option v-for="vItem in arMounth" :value="vItem">{{vItem}}
+					</select>
+				</p>
+				<p class="select select--passyear" :class = "{'invalid' : $v.passportData.$invalid && isSubmitted}">
+					<select v-model="passportYear">
+						<option v-for="vItem in (1921, 2021)" :value="vItem">{{vItem}}
+					</select>
+				</p>
+			</div>
+		</div>
+		<p class = "msg" :class = "{'msg--error' : isError, 'msg--sucsess': !isError}" v-show="sMsg">{{ sMsg }}</p>
+		<input class = "button--confirm" type = "submit" value = "Отправить">
+	</form>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.6/dist/vuelidate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.6/dist/validators.min.js"></script>
+	<script type = "text/javascript" src = "script.js"></script>
+</body>
+</html>
