@@ -12,7 +12,7 @@ Vue.use(window.vuelidate.default)
 				isError: false,
 				name: null,
 				surname: null,
-				middleName: 'Иванович',
+				middleName: null,
 				sex: 'Мужской',
 				phone: null,
 				nosms: false,
