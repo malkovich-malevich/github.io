@@ -93,7 +93,7 @@
 				<label class = "requaried">Тип документа</label><div></div>
 				<p class="select select--passport" :class = "{'invalid' : $v.passportType.$invalid & isSubmitted}">
 					<select v-model="passportType">
-						<option value = -1>Не задано</option>
+						<option value = 0>Не задано</option>
 						<option v-for="vItem in arPassport" :value="vItem">{{ vItem }}</option>
 					</select>
 				</p>
