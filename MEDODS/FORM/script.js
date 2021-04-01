@@ -35,7 +35,7 @@ Vue.use(window.vuelidate.default)
 				passportYear: 2000,
 				clientGroup: null,
 				doctor: 0,
-				passportType: -1,
+				passportType: 0,
 				arClientGroup: ['VIP', 'Проблемные', 'ОМС'],
 				arDoctor:  ['Иванов', 'Захаров', 'Чернышева'],
 				arMounth: ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'],
